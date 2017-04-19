@@ -14,7 +14,17 @@ def pagina_envio(request):
         return render(request, 'bot/index.html', {'usuarios': usuario_localizados})
 
     elif request.method == 'POST':
-        usuario_post = request.POST.get('usuario', None)
-        messagem_post = request.POST.get('mensagem', None)
-        bot.sendMessage(usuario_post, messagem_post)
+        arquivo = request.FILES.get('arquivo')
+        if arquivo:
+            usuario_post = request.POST.get('usuario')
+            extension = arquivo.name[arquivo.name.rfind('.'):]
+            if extension in ('.jpg', '.png', '.jpeg', '.gif'):
+                bot.sendPhoto(usuario_post, arquivo)
+            else:
+                bot.sendDocument(usuario_post, arquivo)
+        
+        mensagem = request.POST.get('mensagem')
+        if mensagem:
+            usuario_post = request.POST.get('usuario')
+            bot.sendMessage(usuario_post, mensagem)
         return HttpResponseRedirect('/')
