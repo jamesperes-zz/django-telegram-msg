@@ -7,7 +7,7 @@
 
 <h1>mandando msg!!</h1>
     <form method="POST" class="post-form" enctype="multipart/form-data" >{% csrf_token %}
- <select name="usuario", id="usuario">
+ <select name="usuario" id="usuario">
     {% for usuario in usuarios %}
 
         <option value="{{ usuario.codigo}}">{{ usuario.nome}}</option>
@@ -17,7 +17,9 @@
 <br>
 
     mensagem:<br>
-    <textarea name="mensagem", id="mensagem" cols="40" rows="5"></textarea><br><br>
+    <textarea name='mensagem'></textarea><br><br>
+    arquivo:<br>
+    <input type='file' name="arquivo" id="arquivo"><br><br>
     <input type="submit" value="Submit">
 
 </form>
