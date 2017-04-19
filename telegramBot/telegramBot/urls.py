@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from bot.views import pagina_envio
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^telegrambot/', include('telegrambot.urls', namespace="telegrambot")),
+    url(r'^$', pagina_envio),
+
 ]

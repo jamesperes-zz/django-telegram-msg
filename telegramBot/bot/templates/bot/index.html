@@ -5,10 +5,15 @@
 </head>
 <body>
 
-<h1>novo anuncio</h1>
-    <form method="POST" class="post-form" enctype="multipart/form-data">
-        teste
-        <button type="submit" class="save btn btn-default">Guardar</button>
+<h1>mandando msg!!</h1>
+    <form method="POST" class="post-form" enctype="multipart/form-data" >{% csrf_token %}
+
+    usuario:<br>
+    <input type="text" name="usuario", id="usuario"><br>
+    mensagem:<br>
+    <textarea name="mensagem", id="mensagem" cols="40" rows="5"></textarea><br><br>
+    <input type="submit" value="Submit">
+
 </form>
 
 </body>
