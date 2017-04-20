@@ -3,7 +3,7 @@ import telepot
 from django.http import HttpResponseRedirect
 from .models import UsuarioTelegram
 
-bot = telepot.Bot('228843118:AAGk6hkBpjIW_DazSEv843WwD_SMCuOFS0M')
+bot = telepot.Bot('----TOKEN AQUI----')
 
 # Create your views here.
 
