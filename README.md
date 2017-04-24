@@ -6,7 +6,7 @@ Versão do Django enviando uma msg de Texto para o Telegram
 
 instalação
 
-   pip install -r requeriments_dev.txt
+    pip install -r requeriments_dev.txt
 
 ainda está em testes.
 
