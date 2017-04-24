@@ -8,5 +8,12 @@ instalação
 
    pip install -r requeriments_dev.txt
 
-ainda está em testes. 
+ainda está em testes.
 
+Comando para iniciar bot
+
+    python manage.py bot
+
+Dentro do bot comandos
+
+    /start
