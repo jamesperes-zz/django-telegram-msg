@@ -3,7 +3,7 @@ import telepot
 from django.http import HttpResponseRedirect
 from .models import UsuarioTelegram
 
-bot = telepot.Bot('----TOKEN AQUI----')
+bot = telepot.Bot('228843118:AAGk6hkBpjIW_DazSEv843WwD_SMCuOFS0M')
 
 # Create your views here.
 
@@ -22,7 +22,7 @@ def pagina_envio(request):
                 bot.sendPhoto(usuario_post, arquivo)
             else:
                 bot.sendDocument(usuario_post, arquivo)
-        
+
         mensagem = request.POST.get('mensagem')
         if mensagem:
             usuario_post = request.POST.get('usuario')
