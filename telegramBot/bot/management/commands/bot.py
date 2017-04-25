@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from datetime import datetime
-from bot.models import UsuarioTelegram, Texto
+from bot.models import UsuarioTelegram, Texto, Imagem
 
 now = datetime.now()
 
@@ -16,15 +16,23 @@ class Command(BaseCommand):
             'Seu código de acesso é {}'.format(update.message.from_user.id))
         update.message.reply_text('Favor Cadastrar em nosso sistema ')
 
-    def chat_listener(bot, update):
+    def photo_list(bot, update):
+        nomes = UsuarioTelegram.objects.all()
+        user = update.message.from_user.first_name
+        photo_file = bot.getFile(update.message.photo[-1].file_id)
 
+        for a in nomes:
+            if a.nome == user:
+                Imagem.objects.create(usuario=a, imagem=photo_file.download())
+        print('tste')
+
+    def chat_listener(bot, update):
+        nomes = UsuarioTelegram.objects.all()
         text = update.message.text
         user = update.message.from_user.first_name
         userid = update.message.from_user.id
         date = str(update.message.date)
         ide = str(update.message.chat_id)
-
-        nomes = UsuarioTelegram.objects.all()
 
         for a in nomes:
             if a.nome == user:
@@ -35,6 +43,8 @@ class Command(BaseCommand):
 
     unknown_handler = MessageHandler(Filters.text, chat_listener)
     updater.dispatcher.add_handler(unknown_handler)
+    handler = MessageHandler(Filters.photo, photo_list)
+    updater.dispatcher.add_handler(handler)
     updater.dispatcher.add_handler(CommandHandler('start', start))
 
     updater.start_polling()
