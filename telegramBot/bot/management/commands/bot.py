@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from datetime import datetime
-from bot.models import UsuarioTelegram, Texto, Imagem
+from bot.models import UsuarioTelegram, Texto, Imagem, Documento
 
 now = datetime.now()
 
@@ -24,7 +24,18 @@ class Command(BaseCommand):
         for a in nomes:
             if a.nome == user:
                 Imagem.objects.create(usuario=a, imagem=photo_file.download())
-        print('tste')
+        print('imagem enviada')
+        update.message.reply_text('Foto enviada para o sistema ')
+
+    def doc_list(bot, update):
+        nomes = UsuarioTelegram.objects.all()
+        user = update.message.from_user.first_name
+        doc_file = bot.getFile(update.message.document.file_id)
+        for a in nomes:
+            if a.nome == user:
+                Documento.objects.create(usuario=a, documento=doc_file.download())
+        print('Doc enviado')
+        update.message.reply_text('Documento enviado para o sistema ')
 
     def chat_listener(bot, update):
         nomes = UsuarioTelegram.objects.all()
@@ -43,8 +54,13 @@ class Command(BaseCommand):
 
     unknown_handler = MessageHandler(Filters.text, chat_listener)
     updater.dispatcher.add_handler(unknown_handler)
+
     handler = MessageHandler(Filters.photo, photo_list)
     updater.dispatcher.add_handler(handler)
+
+    handlers = MessageHandler(Filters.document, doc_list)
+    updater.dispatcher.add_handler(handlers)
+
     updater.dispatcher.add_handler(CommandHandler('start', start))
 
     updater.start_polling()
