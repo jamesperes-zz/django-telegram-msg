@@ -33,7 +33,7 @@ class Command(BaseCommand):
         doc_file = bot.getFile(update.message.document.file_id)
         for a in nomes:
             if a.nome == user:
-                Documento.objects.create(usuario=a, documento=doc_file.download())
+                Documento.objects.create(usuario=a, documento=doc_file.download(custom_path='/media/'))
         print('Doc enviado')
         update.message.reply_text('Documento enviado para o sistema ')
 
