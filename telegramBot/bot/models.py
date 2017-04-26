@@ -16,9 +16,10 @@ class Texto(models.Model):
 
 class Imagem(models.Model):
     usuario = models.ForeignKey(UsuarioTelegram)
-    imagem = models.ImageField(upload_to='uploads/')
+    imagem = models.ImageField(upload_to='uploads')
+
 
 class Documento(models.Model):
     usuario = models.ForeignKey(UsuarioTelegram)
-    documento = models.FileField(upload_to='uploads/')
+    documento = models.FileField(upload_to='uploads')
 
