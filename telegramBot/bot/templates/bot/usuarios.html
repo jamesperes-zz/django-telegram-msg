@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<h1>Historio</h1>
+{% csrf_token %}
+
+    {% for usuario in usuarios %}
+<tr><br>
+          <td> {{ usuario.nome }}</td><br>
+          <td> <a href='/usuario/{{usuario.id}}'>Clique aqui para textos</a></td><br>
+          <td> <a href='/usuariofoto/{{usuario.id}}'>Clique aqui para imagens</a></td><br>
+
+</tr>
+    {%endfor%}
+
+<br>
+
+
+</form>
+
+</body>
+</html>

@@ -19,6 +19,7 @@ class Imagem(models.Model):
     imagem = models.ImageField(upload_to='uploads')
 
 
+
 class Documento(models.Model):
     usuario = models.ForeignKey(UsuarioTelegram)
     documento = models.FileField(upload_to='uploads')

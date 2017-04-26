@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+<h1>Historio</h1>
+{% csrf_token %}
+
+    {% for a in imagem%}
+<tr>
+          <td> <a><img src='{{ a.imagem}}'width=13% height=13%></a></td><br>
+
+</tr>
+    {%endfor%}
+
+<br>
+
+
+</form>
+
+</body>
+</html>

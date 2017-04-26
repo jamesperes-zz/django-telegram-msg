@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from bot.views import pagina_envio
+from bot.views import pagina_envio, lista_usuario, usuario, usuario_foto
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -23,5 +23,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^telegrambot/', include('telegrambot.urls', namespace="telegrambot")),
     url(r'^$', pagina_envio),
+    url(r'^usuarios/$', lista_usuario, name='lista_usuario'),
+    url(r'^usuario/(?P<usuario_id>[0-9]+)$', usuario),
+    url(r'^usuariofoto/(?P<usuario_id>[0-9]+)$', usuario_foto, name='usuario_foto'),
 
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

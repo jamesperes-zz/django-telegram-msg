@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import telepot
 from django.http import HttpResponseRedirect
-from .models import UsuarioTelegram
+from .models import UsuarioTelegram, Imagem, Texto
 
 bot = telepot.Bot('228843118:AAGk6hkBpjIW_DazSEv843WwD_SMCuOFS0M')
 
@@ -28,3 +28,21 @@ def pagina_envio(request):
             usuario_post = request.POST.get('usuario')
             bot.sendMessage(usuario_post, mensagem)
         return HttpResponseRedirect('/')
+
+
+def lista_usuario(request):
+    usuarios = UsuarioTelegram.objects.all()
+    return render(request, 'bot/usuarios.html', {'usuarios': usuarios})
+
+
+def usuario(request, usuario_id):
+    usuario = UsuarioTelegram.objects.get(id=usuario_id)
+    texto = Texto.objects.filter(usuario_id=usuario_id)
+    return render(request, 'bot/usuario.html', {'usuario': usuario,
+                                                                         'texto':texto})
+
+def usuario_foto(request, usuario_id):
+    usuario = UsuarioTelegram.objects.get(id=usuario_id)
+    imagem = Imagem.objects.filter(usuario_id=usuario_id)
+    return render(request, 'bot/usuariofoto.html', {'usuario': usuario,
+                                                                                'imagem':imagem})
