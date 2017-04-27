@@ -9,7 +9,7 @@ now = datetime.now()
 
 
 class Command(BaseCommand):
-    updater = Updater('228843118:AAGk6hkBpjIW_DazSEv843WwD_SMCuOFS0M')
+    updater = Updater('TOKEN AQUI')
 
     def start(bot, update):
         update.message.reply_text('Ola {}, bem vindo ao nosso Bot de comunicação'.format(
