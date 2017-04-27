@@ -10,7 +10,7 @@
 
     {% for a in imagem%}
 <tr>
-          <td> <a><img src='{{ a.imagem}}'width=13% height=13%></a></td><br>
+          <td> <a><img src='{{ a.imagem.url}}'width=13% height=13%></a></td><br>
 
 </tr>
     {%endfor%}
