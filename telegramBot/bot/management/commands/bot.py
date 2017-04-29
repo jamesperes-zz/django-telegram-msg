@@ -4,7 +4,6 @@ from datetime import datetime
 from bot.models import UsuarioTelegram, Texto, Imagem, Documento
 import os
 from os.path import basename
-from django.conf import settings
 from django.core.files import File
 import tempfile
 
@@ -43,8 +42,8 @@ class Command(BaseCommand):
             if a.nome == user:
                 try:
                     upload(a, photo_file, Imagem, 'imagem')
-                except:
-                    print('Falha de upload')
+                except Exception as error:
+                    print('Falha de upload', error)
         print('imagem enviada')
         update.message.reply_text('Foto enviada para o sistema ')
 
@@ -56,8 +55,8 @@ class Command(BaseCommand):
             if a.nome == user:
                 try:
                     upload(a, doc_file, Documento, 'documento')
-                except:
-                    print('Falha no upload')
+                except Exception as error:
+                    print('Falha de upload', error)
         print('Doc enviado')
         update.message.reply_text('Documento enviado para o sistema ')
 
