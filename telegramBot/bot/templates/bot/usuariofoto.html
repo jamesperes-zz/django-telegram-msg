@@ -16,15 +16,20 @@
 
 {% block content %}
 <br>
-<h1>Historio</h1>
+<h1>Historio {{usuario.nome}}</h1>
 {% csrf_token %}
 
-    {% for a in imagem%}
-<tr>
-          <td> <a><img src='{{ a.imagem.url}}'width=13% height=13%></a></td><br>
+<table class="table table-responsive" >
 
-</tr>
+ {% for a in imagem%}
+ <tr>
+          <td><img src='{{ a.imagem.url}}'width=13% height=13%> </td>
+          <td>Data:{{a.created_at}}</td>
+ </tr>
     {%endfor%}
+
+
+</table>
 
 <br>
 
