@@ -1,27 +1,27 @@
 from django.db import models
 
 
-class UsuarioTelegram(models.Model):
-    nome = models.CharField(max_length=50)
-    codigo = models.CharField(max_length=50)
+class UserTelegram(models.Model):
+    name = models.CharField(max_length=50)
+    cod = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.nome
+        return self.name
 
 
-class Texto(models.Model):
-    usuario = models.ForeignKey(UsuarioTelegram)
-    texto = models.TextField()
+class Text(models.Model):
+    user = models.ForeignKey(UserTelegram)
+    text_file = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-class Imagem(models.Model):
-    usuario = models.ForeignKey(UsuarioTelegram)
-    imagem = models.ImageField(upload_to='uploads')
+class Image(models.Model):
+    user = models.ForeignKey(UserTelegram)
+    image_file = models.ImageField(upload_to='uploads')
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-class Documento(models.Model):
-    usuario = models.ForeignKey(UsuarioTelegram)
-    documento = models.FileField(upload_to='uploads')
+class Document(models.Model):
+    user = models.ForeignKey(UserTelegram)
+    document_file = models.FileField(upload_to='uploads')
     created_at = models.DateTimeField(auto_now_add=True)

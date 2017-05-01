@@ -32,11 +32,12 @@
 
 
 <tbody>
- {% for a in imagem%}
+ {% for a in image%}
  <tr>
 
-          <td><img src='{{ a.imagem.url}}'width=13% height=13%> </td>
+          <td><img src='{{ a.image_file.url}}'width=13% height=13%> </td>
           <td>Data:{{a.created_at}}</td>
+          <td></td>
 
  </tr>
     {%endfor%}

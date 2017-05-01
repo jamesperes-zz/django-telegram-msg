@@ -1,7 +1,7 @@
 from django.shortcuts import render
 import telepot
 from django.http import HttpResponseRedirect
-from .models import UsuarioTelegram, Imagem, Texto
+from .models import *
 
 bot = telepot.Bot('228843118:AAGk6hkBpjIW_DazSEv843WwD_SMCuOFS0M')
 
@@ -10,39 +10,40 @@ bot = telepot.Bot('228843118:AAGk6hkBpjIW_DazSEv843WwD_SMCuOFS0M')
 
 def pagina_envio(request):
     if request.method == 'GET':
-        usuario_localizados = UsuarioTelegram.objects.all()
-        return render(request, 'bot/index.html', {'usuarios': usuario_localizados})
+        user_located = UserTelegram.objects.all()
+        return render(request, 'bot/index.html', {'users': user_located})
 
     elif request.method == 'POST':
-        arquivo = request.FILES.get('arquivo')
-        if arquivo:
-            usuario_post = request.POST.get('usuario')
-            extension = arquivo.name[arquivo.name.rfind('.'):]
+        post_file = request.FILES.get('post_file')
+        if post_file:
+            user_post = request.POST.get('user')
+            extension = post_file.name[post_file.name.rfind('.'):]
             if extension in ('.jpg', '.png', '.jpeg', '.gif'):
-                bot.sendPhoto(usuario_post, arquivo)
+                bot.sendPhoto(user_post, post_file)
             else:
-                bot.sendDocument(usuario_post, arquivo)
+                bot.sendDocument(user_post, post_file)
 
-        mensagem = request.POST.get('mensagem')
-        if mensagem:
-            usuario_post = request.POST.get('usuario')
-            bot.sendMessage(usuario_post, mensagem)
+        message = request.POST.get('message')
+        if message:
+            user_post = request.POST.get('user')
+            bot.sendMessage(user_post, message)
         return HttpResponseRedirect('/')
 
 
-def lista_usuario(request):
-    usuarios = UsuarioTelegram.objects.all()
-    return render(request, 'bot/usuarios.html', {'usuarios': usuarios})
+def list_user(request):
+    users = UserTelegram.objects.all()
+    return render(request, 'bot/users.html', {'users': users})
 
 
-def usuario(request, usuario_id):
-    usuario = UsuarioTelegram.objects.get(id=usuario_id)
-    texto = Texto.objects.filter(usuario_id=usuario_id)
-    return render(request, 'bot/usuario.html', {'usuario': usuario,
-                                                                         'texto':texto})
+def texthistory(request, user_id):
+    user = UserTelegram.objects.get(id=user_id)
+    text = Text.objects.filter(user_id=user_id)
+    return render(request, 'bot/texthistory.html', {'user': user,
+                                                'text': text})
 
-def usuario_foto(request, usuario_id):
-    usuario = UsuarioTelegram.objects.get(id=usuario_id)
-    imagem = Imagem.objects.filter(usuario_id=usuario_id)
-    return render(request, 'bot/usuariofoto.html', {'usuario': usuario,
-                                                                                'imagem':imagem})
+
+def photohistory(request, user_id):
+    user = UserTelegram.objects.get(id=user_id)
+    image = Image.objects.filter(user_id=user_id)
+    return render(request, 'bot/photohistory.html', {'user': user,
+                                                    'image': image})

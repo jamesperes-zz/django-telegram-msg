@@ -22,19 +22,19 @@
 <br>
 <h1>mandando msg!!</h1>
     <form method="POST" class="post-form" enctype="multipart/form-data" >{% csrf_token %}
- <select name="usuario" id="usuario">
-    {% for usuario in usuarios %}
+ <select name="user" id="user">
+    {% for user in users %}
 
-        <option value="{{ usuario.codigo}}">{{ usuario.nome}}</option>
+        <option value="{{ user.cod}}">{{ user.name}}</option>
 
     {%endfor%}
 </select>
 <br>
 
     mensagem:<br>
-    <textarea name='mensagem'></textarea><br><br>
+    <textarea name='message'></textarea><br><br>
     arquivo:<br>
-    <input type='file' name="arquivo" id="arquivo"><br><br>
+    <input type='file' name="post_file" id="post_file"><br><br>
     <input type="submit" value="Submit">
 
 </form>
