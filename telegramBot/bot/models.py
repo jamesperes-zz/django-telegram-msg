@@ -12,15 +12,16 @@ class UsuarioTelegram(models.Model):
 class Texto(models.Model):
     usuario = models.ForeignKey(UsuarioTelegram)
     texto = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Imagem(models.Model):
     usuario = models.ForeignKey(UsuarioTelegram)
     imagem = models.ImageField(upload_to='uploads')
-
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Documento(models.Model):
     usuario = models.ForeignKey(UsuarioTelegram)
     documento = models.FileField(upload_to='uploads')
-
+    created_at = models.DateTimeField(auto_now_add=True)
