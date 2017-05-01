@@ -37,6 +37,7 @@ class Command(BaseCommand):
         nomes = UsuarioTelegram.objects.all()
         user = update.message.from_user.first_name
         photo_file = bot.getFile(update.message.photo[-1].file_id)
+        print(photo_file)
 
         for a in nomes:
             if a.nome == user:

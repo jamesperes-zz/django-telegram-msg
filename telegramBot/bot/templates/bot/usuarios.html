@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends 'bot/base.html' %}
+{% block head%}
 
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+   <meta charset="utf-8">
+   <style>
+     html, body {
+       height: 100%;
+       margin: 0;
+       padding: 0;
+     }
+
+   </style>
+
+{%endblock%}
+
+{% block content %}
+<br>
 <h1>Historio</h1>
 {% csrf_token %}
 
@@ -19,8 +30,4 @@
 
 <br>
 
-
-</form>
-
-</body>
-</html>
+{% endblock %}
