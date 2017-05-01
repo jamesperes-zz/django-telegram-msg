@@ -39,7 +39,7 @@ def texthistory(request, user_id):
     user = UserTelegram.objects.get(id=user_id)
     text = Text.objects.filter(user_id=user_id)
     return render(request, 'bot/texthistory.html', {'user': user,
-                                                'text': text})
+                                                                                'text': text})
 
 
 def photohistory(request, user_id):

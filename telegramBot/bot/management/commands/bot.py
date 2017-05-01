@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from datetime import datetime
-from bot.models import UsuarioTelegram, Texto, Imagem, Documento
+from bot.models import UserTelegram, Text, Image, Document
 import os
 from os.path import basename
 from django.core.files import File
@@ -11,16 +11,16 @@ now = datetime.now()
 tmp = tempfile.gettempdir()
 
 
-def upload(usuario, telegramfile, model, modelfield):
-    nome = basename(telegramfile.file_path)
-    caminho = os.path.join(tmp, nome)
-    telegramfile.download(custom_path=caminho)
-    obj = model(usuario=usuario)
+def upload(user, telegramfile, model, modelfield):
+    name = basename(telegramfile.file_path)
+    path_file = os.path.join(tmp, name)
+    telegramfile.download(custom_path=path_file)
+    obj = model(user=user)
     getattr(obj, modelfield).save(
-        os.path.basename(caminho),
-        File(open(caminho, 'rb')))
+        os.path.basename(path_file),
+        File(open(path_file, 'rb')))
     obj.save()
-    os.remove(caminho)
+    os.remove(path_file)
 
 
 class Command(BaseCommand):
@@ -34,44 +34,43 @@ class Command(BaseCommand):
         update.message.reply_text('Favor Cadastrar em nosso sistema ')
 
     def photo_list(bot, update):
-        nomes = UsuarioTelegram.objects.all()
+        names = UserTelegram.objects.all()
         user = update.message.from_user.first_name
         photo_file = bot.getFile(update.message.photo[-1].file_id)
-        print(photo_file)
 
-        for a in nomes:
-            if a.nome == user:
+        for a in names:
+            if a.name == user:
                 try:
-                    upload(a, photo_file, Imagem, 'imagem')
+                    upload(a, photo_file, Image, 'image_file')
                 except Exception as error:
                     print('Falha de upload', error)
         print('imagem enviada')
         update.message.reply_text('Foto enviada para o sistema ')
 
     def doc_list(bot, update):
-        nomes = UsuarioTelegram.objects.all()
+        names = UserTelegram.objects.all()
         user = update.message.from_user.first_name
         doc_file = bot.getFile(update.message.document.file_id)
-        for a in nomes:
-            if a.nome == user:
+        for a in names:
+            if a.name == user:
                 try:
-                    upload(a, doc_file, Documento, 'documento')
+                    upload(a, doc_file, Document, 'document_file')
                 except Exception as error:
                     print('Falha de upload', error)
         print('Doc enviado')
         update.message.reply_text('Documento enviado para o sistema ')
 
     def chat_listener(bot, update):
-        nomes = UsuarioTelegram.objects.all()
+        names = UserTelegram.objects.all()
         text = update.message.text
         user = update.message.from_user.first_name
         userid = update.message.from_user.id
         date = str(update.message.date)
         ide = str(update.message.chat_id)
 
-        for a in nomes:
-            if a.nome == user:
-                Texto.objects.create(usuario=a, texto=text)
+        for a in names:
+            if a.name == user:
+                Text.objects.create(user=a, text_file=text)
 
         print('{0} {1}:{2} {3}  .... {4}'.format(
             date, user, text, ide, userid))
