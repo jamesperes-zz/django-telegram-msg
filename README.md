@@ -1,19 +1,17 @@
 # django-telegram-msg
-Projeto em Django para enviar msg no Telegram
+Project send and receive message Django/Telegram
 ---------------------------------------------
 
-Versão do Django enviando uma msg de Texto para o Telegram
 
-instalação
+install
 
     pip install -r requeriments_dev.txt
 
-ainda está em testes.
 
-Comando para iniciar bot
+start bot Django
 
     python manage.py bot
 
-Dentro do bot comandos
+start bot Telegram
 
     /start
