@@ -20,7 +20,7 @@
 
 
 <br>
-<h1>mandando msg!!</h1>
+<h1>Send a Menssage</h1>
     <form method="POST" class="post-form" enctype="multipart/form-data" >{% csrf_token %}
  <select name="user" id="user">
     {% for user in users %}
@@ -31,9 +31,9 @@
 </select>
 <br>
 
-    mensagem:<br>
+    Menssage:<br>
     <textarea name='message'></textarea><br><br>
-    arquivo:<br>
+    File:<br>
     <input type='file' name="post_file" id="post_file"><br><br>
     <input type="submit" value="Submit">
 

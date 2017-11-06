@@ -24,28 +24,27 @@ def upload(user, telegramfile, model, modelfield):
 
 
 class Command(BaseCommand):
-    updater = Updater('228843118:AAGk6hkBpjIW_DazSEv843WwD_SMCuOFS0M')
+    updater = Updater('TOKEN HERE!!')
 
     def start(bot, update):
-        update.message.reply_text('Ola {}, bem vindo ao nosso Bot de comunicação'.format(
+        update.message.reply_text('Hello {}, Wellcome the Bot '.format(
             update.message.from_user.first_name))
         update.message.reply_text(
-            'Seu código de acesso é {}'.format(update.message.from_user.id))
-        update.message.reply_text('Favor Cadastrar em nosso sistema ')
+            'Your code is {}'.format(update.message.from_user.id))
+        update.message.reply_text('Please, register your code and first name in system')
 
     def photo_list(bot, update):
         names = UserTelegram.objects.all()
         user = update.message.from_user.first_name
         photo_file = bot.getFile(update.message.photo[-1].file_id)
-
         for a in names:
             if a.name == user:
                 try:
                     upload(a, photo_file, Image, 'image_file')
                 except Exception as error:
-                    print('Falha de upload', error)
-        print('imagem enviada')
-        update.message.reply_text('Foto enviada para o sistema ')
+                    print('Fail ', error)
+        print('Photo upload completed')
+        update.message.reply_text('Photo upload completed ')
 
     def doc_list(bot, update):
         names = UserTelegram.objects.all()
@@ -56,9 +55,9 @@ class Command(BaseCommand):
                 try:
                     upload(a, doc_file, Document, 'document_file')
                 except Exception as error:
-                    print('Falha de upload', error)
-        print('Doc enviado')
-        update.message.reply_text('Documento enviado para o sistema ')
+                    print('Fail ', error)
+        print('Doc upload completed')
+        update.message.reply_text('Doc upload completed ')
 
     def chat_listener(bot, update):
         names = UserTelegram.objects.all()
@@ -74,15 +73,15 @@ class Command(BaseCommand):
 
         print('{0} {1}:{2} {3}  .... {4}'.format(
             date, user, text, ide, userid))
-        print()
-    unknown_handler = MessageHandler(Filters.text, chat_listener)
-    updater.dispatcher.add_handler(unknown_handler)
 
-    handler = MessageHandler(Filters.photo, photo_list)
-    updater.dispatcher.add_handler(handler)
+    text_handler = MessageHandler(Filters.text, chat_listener)
+    updater.dispatcher.add_handler(text_handler)
 
-    handlers = MessageHandler(Filters.document, doc_list)
-    updater.dispatcher.add_handler(handlers)
+    photo_handler = MessageHandler(Filters.photo, photo_list)
+    updater.dispatcher.add_handler(photo_handler)
+
+    doc_handler = MessageHandler(Filters.document, doc_list)
+    updater.dispatcher.add_handler(doc_handler)
 
     updater.dispatcher.add_handler(CommandHandler('start', start))
 

@@ -3,7 +3,7 @@ import telepot
 from django.http import HttpResponseRedirect
 from .models import *
 
-bot = telepot.Bot('228843118:AAGk6hkBpjIW_DazSEv843WwD_SMCuOFS0M')
+bot = telepot.Bot('token here!!')
 
 # Create your views here.
 
@@ -38,12 +38,12 @@ def list_user(request):
 def texthistory(request, user_id):
     user = UserTelegram.objects.get(id=user_id)
     text = Text.objects.filter(user_id=user_id)
-    return render(request, 'bot/texthistory.html', {'user': user,
-                                                                                'text': text})
+    return render(request, 'bot/texthistory.html', {'user': user, 
+                                                    'text': text})
 
 
 def photohistory(request, user_id):
     user = UserTelegram.objects.get(id=user_id)
     image = Image.objects.filter(user_id=user_id)
     return render(request, 'bot/photohistory.html', {'user': user,
-                                                    'image': image})
+                                                     'image': image})
